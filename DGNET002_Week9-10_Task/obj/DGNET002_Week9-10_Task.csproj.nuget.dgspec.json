@@ -1,20 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\Decagon\\source\\repos\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj": {}
+    "C:\\Users\\FABIAN\\Desktop\\DecagonTask\\dgnet002-week-9-10-task-Fabito97\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj": {}
   },
   "projects": {
-    "C:\\Users\\Decagon\\source\\repos\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj": {
+    "C:\\Users\\FABIAN\\Desktop\\DecagonTask\\dgnet002-week-9-10-task-Fabito97\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\Decagon\\source\\repos\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj",
+        "projectUniqueName": "C:\\Users\\FABIAN\\Desktop\\DecagonTask\\dgnet002-week-9-10-task-Fabito97\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj",
         "projectName": "DGNET002_Week9-10_Task",
-        "projectPath": "C:\\Users\\Decagon\\source\\repos\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj",
-        "packagesPath": "C:\\Users\\Decagon\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\Decagon\\source\\repos\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task\\obj\\",
+        "projectPath": "C:\\Users\\FABIAN\\Desktop\\DecagonTask\\dgnet002-week-9-10-task-Fabito97\\DGNET002_Week9-10_Task\\DGNET002_Week9-10_Task.csproj",
+        "packagesPath": "C:\\Users\\FABIAN\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\FABIAN\\Desktop\\DecagonTask\\dgnet002-week-9-10-task-Fabito97\\DGNET002_Week9-10_Task\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\Decagon\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\FABIAN\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -22,6 +22,7 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "C:\\Program Files\\dotnet\\library-packs": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -34,12 +35,43 @@
           "warnAsError": [
             "NU1605"
           ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
         }
       },
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "CloudinaryDotNet": {
+              "target": "Package",
+              "version": "[1.26.2, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.AspNetCore.Identity.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.SqlServer": {
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
+            "Microsoft.EntityFrameworkCore.Tools": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[8.0.8, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.4.0, )"
@@ -64,7 +96,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.101/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.303/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DGNET002_Week9-10_Task.props" />
+</Project>
