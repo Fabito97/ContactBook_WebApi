@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace DGNET002_Week9_10_Task.DTO
+namespace DGNET002_Week9_10_Task.DTO.Account
 {
     public class RegisterDTO
     {
@@ -18,7 +18,7 @@ namespace DGNET002_Week9_10_Task.DTO
         public string Password { get; set; }
 
         [Required]
-        [DataType (DataType.Password)]
+        [DataType(DataType.Password)]
         [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
         public string ConfirmPassword { get; set; }
 

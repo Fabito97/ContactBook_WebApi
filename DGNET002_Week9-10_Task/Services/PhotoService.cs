@@ -17,32 +17,27 @@ namespace DGNET002_Week9_10_Task.Services
         }
 
         public async Task<ImageUploadResult> AddPhotoAsync(IFormFile imageFile)
-        {
-            var uploadResult = new ImageUploadResult();
-
-            if (imageFile != null && imageFile.Length > 0)
+        {               
+            try
             {
-                try
-                {
-                    using var stream = imageFile.OpenReadStream();
+                var uploadResult = new ImageUploadResult();
 
-                    var uploadParams = new ImageUploadParams()
-                    {
-                        File = new FileDescription(imageFile.FileName, stream),
-                        Transformation = new Transformation().Width(500).Crop("fill").Gravity("face")
-                    };
-                    uploadResult = await _cloudinary.UploadAsync(uploadParams);
-                }
-                catch (Exception ex)
+                using var stream = imageFile.OpenReadStream();
+
+                var uploadParams = new ImageUploadParams()
                 {
-                    throw new Exception("Image upload failed " + ex.Message);
-                }
+                    File = new FileDescription(imageFile.FileName, stream),
+                    Transformation = new Transformation().Width(500).Crop("fill").Gravity("face")
+                };
+                uploadResult = await _cloudinary.UploadAsync(uploadParams);
+
+                return uploadResult;
             }
-            else
+            catch (Exception ex)
             {
-                throw new ArgumentException("No Image file provides");
-            }
-            return uploadResult;
+                throw new Exception("Image upload failed " + ex.Message);
+            }           
+           
         }
 
         public async Task<DeletionResult> DeletePhotoAsync(string publicId)

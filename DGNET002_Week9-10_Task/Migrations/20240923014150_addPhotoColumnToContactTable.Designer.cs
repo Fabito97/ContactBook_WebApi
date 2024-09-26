@@ -4,6 +4,7 @@ using DGNET002_Week9_10_Task.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace DGNET002_Week9_10_Task.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240923014150_addPhotoColumnToContactTable")]
+    partial class addPhotoColumnToContactTable
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -35,6 +38,7 @@ namespace DGNET002_Week9_10_Task.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ContactPhoto")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("FirstName")
@@ -49,13 +53,7 @@ namespace DGNET002_Week9_10_Task.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("UserId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(450)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("UserId");
 
                     b.ToTable("Contacts");
                 });
@@ -69,6 +67,9 @@ namespace DGNET002_Week9_10_Task.Migrations
                         .HasColumnType("int");
 
                     b.Property<string>("Address")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CompanyName")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ConcurrencyStamp")
@@ -112,9 +113,6 @@ namespace DGNET002_Week9_10_Task.Migrations
 
                     b.Property<bool>("PhoneNumberConfirmed")
                         .HasColumnType("bit");
-
-                    b.Property<string>("ProfileImage")
-                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("SecurityStamp")
                         .HasColumnType("nvarchar(max)");
@@ -168,13 +166,13 @@ namespace DGNET002_Week9_10_Task.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "a0ec6242-bb72-4bc8-9237-ce73e7a01840",
+                            Id = "02702af6-080c-4a11-b865-842ac67ec6f0",
                             Name = "Admin",
                             NormalizedName = "ADMIN"
                         },
                         new
                         {
-                            Id = "20357a63-02c9-4745-80be-6b3538cf07d9",
+                            Id = "20908ee8-8908-4923-91e8-f5b3b4471d83",
                             Name = "Regular",
                             NormalizedName = "REGULAR"
                         });
@@ -286,17 +284,6 @@ namespace DGNET002_Week9_10_Task.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("DGNET002_Week9_10_Task.Models.Contact", b =>
-                {
-                    b.HasOne("DGNET002_Week9_10_Task.Models.User", "User")
-                        .WithMany("Contacts")
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<string>", b =>
                 {
                     b.HasOne("Microsoft.AspNetCore.Identity.IdentityRole", null)
@@ -346,11 +333,6 @@ namespace DGNET002_Week9_10_Task.Migrations
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("DGNET002_Week9_10_Task.Models.User", b =>
-                {
-                    b.Navigation("Contacts");
                 });
 #pragma warning restore 612, 618
         }

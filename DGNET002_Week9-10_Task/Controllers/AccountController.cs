@@ -1,5 +1,7 @@
 ﻿using DGNET002_Week9_10_Task.Data;
 using DGNET002_Week9_10_Task.DTO;
+using DGNET002_Week9_10_Task.DTO.Contact;
+using DGNET002_Week9_10_Task.DTO.Account;
 using DGNET002_Week9_10_Task.Interfaces;
 using DGNET002_Week9_10_Task.Models;
 using DGNET002_Week9_10_Task.Services;

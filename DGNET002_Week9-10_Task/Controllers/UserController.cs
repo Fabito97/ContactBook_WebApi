@@ -9,24 +9,25 @@ namespace DGNET002_Week9_10_Task.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ContactController : ControllerBase
+    public class UserController : ControllerBase
     {
-        private readonly IContactRepository _contactRepository;
+
+        private readonly IUserRepository _userRepository;
         private readonly IPhotoService _photoService;
-        public ContactController(IContactRepository contactRepository, IPhotoService photoService)
+        public UserController(IUserRepository userRepository, IPhotoService photoService)
         {
-            _contactRepository = contactRepository;
+            _userRepository = userRepository;
             _photoService = photoService;
         }
 
         [HttpGet("contacts/page")]
         public async Task<IActionResult> GetAll(PaginationParams paginationParams)
         {
-            int totalContacts = await _contactRepository.GetCountAsync();
+            int totalContacts = await _userRepository.GetCountAsync();
 
-            int totalPages = (int)Math.Ceiling((double)totalContacts / paginationParams.PageSize);            
+            int totalPages = (int)Math.Ceiling((double)totalContacts / paginationParams.PageSize);
 
-            var contacts = _contactRepository.GetContacts(paginationParams);
+            var contacts = _userRepository.GetContacts(paginationParams);
 
             var response = new
             {
@@ -48,7 +49,7 @@ namespace DGNET002_Week9_10_Task.Controllers
                 return BadRequest("Please input a search term");
             }
 
-            var contacts = await _contactRepository.SearchContacts(queryParams);
+            var contacts = await _userRepository.SearchContacts(queryParams);
 
             return Ok(contacts);
         }
@@ -59,7 +60,7 @@ namespace DGNET002_Week9_10_Task.Controllers
         {
             if (id == 0) return BadRequest("id cannot be zero");
 
-            var contact = await _contactRepository.GetContactById(id);
+            var contact = await _userRepository.GetContactById(id);
 
             if (contact == null) return BadRequest("Cannot find contact");
 
@@ -67,12 +68,12 @@ namespace DGNET002_Week9_10_Task.Controllers
         }
 
         [HttpPost("create")]
-        public IActionResult CreateContact([FromBody] Contact contact)
+        public IActionResult CreateContact([FromBody] User user)
         {
             if (!ModelState.IsValid) return BadRequest();
 
-            _contactRepository.Add(contact);
-            return Ok(contact);
+            _userRepository.Add(user);
+            return Ok(user);
         }
 
         [HttpPut("update")]
@@ -83,7 +84,7 @@ namespace DGNET002_Week9_10_Task.Controllers
                 return BadRequest(ModelState);
             }
 
-            var contact = new Contact
+            var user = new User
             {
                 FirstName = contactDTO.FirstName,
                 LastName = contactDTO.LastName,
@@ -92,9 +93,9 @@ namespace DGNET002_Week9_10_Task.Controllers
             };
 
 
-            _contactRepository.UpdateContact(contact);
+            _userRepository.UpdateContact(user);
 
-            return Ok(contact);
+            return Ok(user);
 
         }
 
@@ -103,11 +104,11 @@ namespace DGNET002_Week9_10_Task.Controllers
         {
             if (photo == null || photo.Length == 0) return BadRequest("No photo file uploaded.");
 
-            var contact = await _contactRepository.GetContactById(id);
+            var user = await _userRepository.GetContactById(id);
 
-            if (contact == null)
+            if (user == null)
             {
-                return NotFound($"No contact found with ID = {id}");
+                return NotFound($"No user found with ID = {id}");
             }
 
             var uploadResult = await _photoService.AddPhotoAsync(photo);
@@ -116,14 +117,14 @@ namespace DGNET002_Week9_10_Task.Controllers
             {
                 return StatusCode(500, "Photo upload failed");
             }
-            contact.ContactPhoto = uploadResult.Url.AbsoluteUri;
+            user.ProfileImage = uploadResult.Url.AbsoluteUri;
 
-            _contactRepository.UpdateContact(contact);
+            _userRepository.UpdateContact(user);
 
-            return Ok(new 
-            { 
-                Message = "Photo uploaded Successfully.", 
-                PhotoUrl = contact.ContactPhoto 
+            return Ok(new
+            {
+                Message = "Photo uploaded Successfully.",
+                PhotoUrl = user.ProfileImage
             });
 
         }
@@ -131,13 +132,13 @@ namespace DGNET002_Week9_10_Task.Controllers
         [HttpDelete("delete")]
         public async Task<IActionResult> DeleteContact(int id)
         {
-            var contact = await _contactRepository.GetContactById(id);
+            var user = await _userRepository.GetContactById(id);
 
-            if (contact == null) return BadRequest("Cannot find contact to delete");
+            if (user == null) return BadRequest("Cannot find user to delete");
 
-            _contactRepository.Delete(contact);
+            _userRepository.Delete(user);
 
-            return Ok("Contact deleted successfully");
+            return Ok("User deleted successfully");
         }
 
     }

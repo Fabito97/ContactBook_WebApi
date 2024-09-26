@@ -1,4 +1,5 @@
 ﻿using DGNET002_Week9_10_Task.Data;
+using DGNET002_Week9_10_Task.Helper;
 using DGNET002_Week9_10_Task.Interfaces;
 using DGNET002_Week9_10_Task.Models;
 using Microsoft.EntityFrameworkCore;
@@ -13,9 +14,41 @@ namespace DGNET002_Week9_10_Task.Repository
             _context = context;
         }
 
-        public async Task<IEnumerable<Contact>> GetContacts()
+
+        public async Task<int> GetCountAsync()
         {
-            return await _context.Contacts.ToListAsync();
+            return await _context.Contacts.CountAsync();
+        }
+
+        public IQueryable<Contact> GetAllContacts()
+        {
+            return _context.Contacts.AsQueryable();
+            
+        }
+        public async Task<IEnumerable<Contact>> GetContacts(PaginationParams pageParams)
+        {
+            var contacts = GetAllContacts();
+
+            return await contacts
+                .Skip((pageParams.Page - 1) * pageParams.PageSize)
+                .Take(pageParams.PageSize)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<Contact>> SearchContacts(QueryParams queryParams)
+        {
+            var contacts = GetAllContacts();
+
+            if (!string.IsNullOrWhiteSpace(queryParams.Name))
+            {
+                contacts = contacts.Where(c => c.FirstName.Contains(queryParams.Name));
+            }
+            if (!string.IsNullOrWhiteSpace(queryParams.PhoneNumber))
+            {
+                contacts = contacts.Where(c => c.PhoneNumber.Contains(queryParams.PhoneNumber));
+            }
+            return await contacts.ToListAsync();
+                 
         }
 
         public async Task<Contact> GetContactById(int id)

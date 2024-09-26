@@ -1,4 +1,4 @@
-﻿namespace DGNET002_Week9_10_Task.DTO
+﻿namespace DGNET002_Week9_10_Task.DTO.Account
 {
     public class ResponseDTO
     {
